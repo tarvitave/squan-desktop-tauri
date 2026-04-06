@@ -217,7 +217,7 @@ async fn call_gemini(request: &ChatRequest) -> Result<ChatResponse, String> {
     let tokens_used = prompt_tokens + completion_tokens;
     
     // Cost for Gemini 1.5 Pro: Free up to limits, then minimal
-    let cost = (tokens_used as f64 * 0.001 / 1000.0);
+    let cost = tokens_used as f64 * 0.001 / 1000.0;
     
     Ok(ChatResponse {
         message,
