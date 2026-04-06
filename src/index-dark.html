@@ -27,7 +27,7 @@
         /* Sidebar */
         .sidebar {
             background: #f8fafc;
-            border-right: 1px solid #e2e8f0;
+            border-right: 1px solid rgba(37, 99, 235, 0.1);
             display: flex;
             flex-direction: column;
             padding: 20px 0;
@@ -37,7 +37,9 @@
             padding: 0 20px 20px;
             font-size: 24px;
             font-weight: bold;
-            color: #2563eb;
+            background: #2563eb;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-section {
@@ -51,7 +53,6 @@
             text-transform: uppercase;
             color: #94a3b8;
             margin-bottom: 5px;
-            font-weight: 600;
         }
 
         .nav-item {
@@ -67,14 +68,13 @@
         }
 
         .nav-item:hover {
-            background: #e0e7ff;
+            background: rgba(37, 99, 235, 0.05);
             color: #1e293b;
         }
 
         .nav-item.active {
-            background: #dbeafe;
-            color: #2563eb;
-            font-weight: 500;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(236, 72, 153, 0.2));
+            color: #fff;
         }
 
         .new-btn {
@@ -90,13 +90,11 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: all 0.2s;
         }
 
         .new-btn:hover {
-            background: #1d4ed8;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
         }
 
         /* Main Content */
@@ -107,8 +105,8 @@
         }
 
         .topbar {
-            background: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
+            background: #f1f5f9;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
             padding: 15px 25px;
             display: flex;
             justify-content: space-between;
@@ -118,7 +116,6 @@
         .topbar-title {
             font-size: 18px;
             font-weight: 600;
-            color: #0f172a;
         }
 
         .topbar-actions {
@@ -128,25 +125,22 @@
 
         .topbar-btn {
             padding: 8px 15px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: rgba(37, 99, 235, 0.05);
+            border: 1px solid rgba(37, 99, 235, 0.3);
             border-radius: 6px;
-            color: #64748b;
+            color: #1e293b;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .topbar-btn:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-            color: #1e293b;
+            background: rgba(37, 99, 235, 0.1);
         }
 
         .content-area {
             flex: 1;
             overflow-y: auto;
             padding: 25px;
-            background: #ffffff;
         }
 
         /* Views */
@@ -174,7 +168,6 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            background: #f8fafc;
         }
 
         .message {
@@ -202,16 +195,14 @@
         }
 
         .message.assistant {
-            background: #ffffff;
+            background: #f8fafc;
             align-self: flex-start;
-            border: 1px solid #e2e8f0;
-            color: #1e293b;
         }
 
         .input-area {
             padding: 20px;
-            background: #ffffff;
-            border-top: 1px solid #e2e8f0;
+            background: #f1f5f9;
+            border-top: 1px solid rgba(37, 99, 235, 0.1);
         }
 
         .input-wrapper {
@@ -222,17 +213,12 @@
         .chat-input {
             flex: 1;
             padding: 15px;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            border: 1px solid rgba(37, 99, 235, 0.3);
             border-radius: 10px;
             color: #1e293b;
             font-size: 14px;
             resize: none;
-        }
-
-        .chat-input:focus {
-            outline: none;
-            border-color: #2563eb;
         }
 
         .send-btn {
@@ -243,11 +229,6 @@
             color: white;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .send-btn:hover {
-            background: #1d4ed8;
         }
 
         /* Sessions List */
@@ -259,26 +240,25 @@
 
         .session-card {
             padding: 15px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border: 1px solid rgba(37, 99, 235, 0.1);
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .session-card:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
+            background: rgba(37, 99, 235, 0.05);
+            border-color: rgba(37, 99, 235, 0.4);
         }
 
         .session-card.active {
-            background: #dbeafe;
+            background: rgba(37, 99, 235, 0.1);
             border-color: #2563eb;
         }
 
         .session-title {
             font-weight: 600;
-            color: #0f172a;
             margin-bottom: 5px;
         }
 
@@ -296,8 +276,8 @@
 
         .extension-card {
             padding: 20px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border: 1px solid rgba(37, 99, 235, 0.1);
             border-radius: 12px;
         }
 
@@ -311,13 +291,12 @@
         .extension-name {
             font-weight: 600;
             font-size: 16px;
-            color: #0f172a;
         }
 
         .extension-toggle {
             width: 50px;
             height: 26px;
-            background: #cbd5e1;
+            background: #444;
             border-radius: 13px;
             position: relative;
             cursor: pointer;
@@ -356,21 +335,16 @@
         .config-input {
             width: 100%;
             padding: 10px;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            border: 1px solid rgba(37, 99, 235, 0.3);
             border-radius: 6px;
             color: #1e293b;
             margin-top: 8px;
         }
 
-        .config-input:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-
         .config-label {
             font-size: 13px;
-            color: #64748b;
+            color: #94a3b8;
             margin-top: 10px;
         }
 
@@ -383,8 +357,8 @@
 
         .app-card {
             padding: 20px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border: 1px solid rgba(37, 99, 235, 0.1);
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s;
@@ -393,7 +367,7 @@
         .app-card:hover {
             transform: translateY(-4px);
             border-color: #2563eb;
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
         }
 
         .app-icon {
@@ -403,13 +377,12 @@
 
         .app-name {
             font-weight: 600;
-            color: #0f172a;
             margin-bottom: 5px;
         }
 
         .app-description {
             font-size: 13px;
-            color: #64748b;
+            color: #94a3b8;
         }
 
         /* Scheduler */
@@ -421,8 +394,8 @@
 
         .schedule-card {
             padding: 20px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border: 1px solid rgba(37, 99, 235, 0.1);
             border-radius: 12px;
         }
 
@@ -436,7 +409,6 @@
         .schedule-name {
             font-weight: 600;
             font-size: 16px;
-            color: #0f172a;
         }
 
         .schedule-status {
@@ -447,13 +419,13 @@
         }
 
         .schedule-status.active {
-            background: #dcfce7;
-            color: #16a34a;
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
         }
 
         .schedule-status.paused {
-            background: #fef3c7;
-            color: #ca8a04;
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
         }
 
         .empty-state {
@@ -477,38 +449,28 @@
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 10px;
-            color: #475569;
+            color: #64748b;
         }
 
         .settings-input {
             width: 100%;
             padding: 12px 15px;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            border: 1px solid rgba(37, 99, 235, 0.3);
             border-radius: 8px;
             color: #1e293b;
             font-size: 14px;
-        }
-
-        .settings-input:focus {
-            outline: none;
-            border-color: #2563eb;
         }
 
         .settings-select {
             width: 100%;
             padding: 12px 15px;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            border: 1px solid rgba(37, 99, 235, 0.3);
             border-radius: 8px;
             color: #1e293b;
             font-size: 14px;
             cursor: pointer;
-        }
-
-        .settings-select:focus {
-            outline: none;
-            border-color: #2563eb;
         }
 
         .save-btn {
@@ -520,40 +482,11 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 20px;
-            transition: all 0.2s;
         }
 
         .save-btn:hover {
-            background: #1d4ed8;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        h2 {
-            color: #0f172a;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: #64748b;
-        }
-
-        a {
-            color: #2563eb;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        pre {
-            background: #f1f5f9;
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            color: #1e293b;
-            border: 1px solid #e2e8f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
         }
     </style>
 </head>
@@ -702,16 +635,16 @@
                 </div>
                 <div class="content-area">
                     <h2>Upgrade to Server Mode</h2>
-                    <p style="margin: 15px 0;">Get multi-agent orchestration, team collaboration, and advanced features.</p>
+                    <p style="margin: 15px 0; color: #94a3b8;">Get multi-agent orchestration, team collaboration, and advanced features.</p>
                     
                     <div class="settings-section">
                         <div class="settings-label">Step 1: Install Docker Desktop</div>
-                        <p style="margin: 10px 0;">Download from <a href="https://www.docker.com/products/docker-desktop/">docker.com</a></p>
+                        <p style="color: #94a3b8; margin: 10px 0;">Download from <a href="https://www.docker.com/products/docker-desktop/" style="color: #2563eb;">docker.com</a></p>
                     </div>
 
                     <div class="settings-section">
                         <div class="settings-label">Step 2: Run Setup Script</div>
-                        <pre>Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tarvitave/squan-release/main/start-windows.ps1" -OutFile "start.ps1"; .\start.ps1</pre>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; overflow-x: auto; color: #1e293b;">Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tarvitave/squan-release/main/start-windows.ps1" -OutFile "start.ps1"; .\start.ps1</pre>
                     </div>
 
                     <div class="settings-section">
@@ -984,7 +917,7 @@
                             <div class="schedule-name">${s.name}</div>
                             <div class="schedule-status ${s.status}">${s.status}</div>
                         </div>
-                        <div style="color: #64748b; font-size: 13px;">Cron: ${s.cron}</div>
+                        <div style="color: #94a3b8; font-size: 13px;">Cron: ${s.cron}</div>
                     </div>
                 `).join('');
             }
