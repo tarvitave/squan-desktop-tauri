@@ -1,0 +1,28 @@
+# Rust/Cargo
+target/
+Cargo.lock
+
+# Node
+node_modules/
+dist/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build outputs
+*.exe
+*.dmg
+*.AppImage
+*.deb
+
+# Temporary
+*.tmp
+*.bak

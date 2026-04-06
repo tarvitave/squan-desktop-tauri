@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squan Desktop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #ffffff;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #888;
+        }
+
+        .status-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-card.success {
+            border-color: rgba(34, 197, 94, 0.3);
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .status-card.error {
+            border-color: rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .status-card.warning {
+            border-color: rgba(251, 191, 36, 0.3);
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card p {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #667eea;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 0.3rem;
+        }
+
+        .feature-desc {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #22c55e;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab:hover {
+            color: #aaa;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Squan</div>
+            <div class="subtitle">AI Development Platform</div>
+        </div>
+
+        <!-- Status -->
+        <div id="statusCard" class="status-card hidden">
+            <div id="statusMessage"></div>
+        </div>
+
+        <!-- Quick Start Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('connect')">Connect to Server</button>
+            <button class="tab" onclick="switchTab('docker')">Start with Docker</button>
+            <button class="tab" onclick="switchTab('learn')">Learn More</button>
+        </div>
+
+        <!-- Tab: Connect to Server -->
+        <div id="connect-tab" class="tab-content active">
+            <div class="card">
+                <h2><span class="step-number">1</span> Connect to Squan Server</h2>
+                <p>If you already have a Squan server running, connect to it here:</p>
+                
+                <div class="input-group">
+                    <label for="serverUrl">Server URL</label>
+                    <input 
+                        type="text" 
+                        id="serverUrl" 
+                        placeholder="http://localhost:3000" 
+                        value="http://localhost:3000"
+                    />
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn" onclick="connectToServer()">
+                        <span>🔗</span>
+                        Connect
+                    </button>
+                    <button class="btn btn-secondary" onclick="testConnection()">
+                        <span>🧪</span>
+                        Test Connection
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Quick Actions</h2>
+                <div class="feature-grid">
+                    <div class="feature">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Dashboard</div>
+                        <div class="feature-desc">View agents & workflows</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-title">Agents</div>
+                        <div class="feature-desc">Manage AI agents</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">Workflows</div>
+                        <div class="feature-desc">Create automations</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💰</div>
+                        <div class="feature-title">Cost Tracking</div>
+                        <div class="feature-desc">Monitor API usage</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Docker Setup -->
+        <div id="docker-tab" class="tab-content">
+            <div class="card">
+                <h2><span class="step-number">1</span> Start Squan with Docker</h2>
+                <p>The fastest way to get Squan running locally:</p>
+
+                <div class="code-block" id="dockerCommands">
+# Download docker-compose.yml
+curl -O https://raw.githubusercontent.com/tarvitave/squan-release/main/docker-compose.yml
+
+# Download .env.example
+curl -O https://raw.githubusercontent.com/tarvitave/squan-release/main/.env.example
+
+# Rename and configure
+mv .env.example .env
+# Edit .env with your API keys
+
+# Start Squan
+docker-compose up -d
+
+# Access at http://localhost:3000
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn" onclick="checkDocker()">
+                        <span>🐳</span>
+                        Check Docker Installation
+                    </button>
+                    <button class="btn btn-secondary" onclick="openDocs()">
+                        <span>📖</span>
+                        View Full Guide
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><span class="step-number">2</span> Configure API Keys</h2>
+                <p>Squan needs at least one AI provider API key:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature">
+                        <div class="feature-icon">🔑</div>
+                        <div class="feature-title">Anthropic</div>
+                        <div class="feature-desc">ANTHROPIC_API_KEY</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔑</div>
+                        <div class="feature-title">OpenAI</div>
+                        <div class="feature-desc">OPENAI_API_KEY</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔑</div>
+                        <div class="feature-title">Google</div>
+                        <div class="feature-desc">GOOGLE_API_KEY</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔑</div>
+                        <div class="feature-title">Azure</div>
+                        <div class="feature-desc">AZURE_API_KEY</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Learn More -->
+        <div id="learn-tab" class="tab-content">
+            <div class="card">
+                <h2>What is Squan?</h2>
+                <p>Squan is a universal AI development platform that helps you:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature">
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-title">Multi-Agent</div>
+                        <div class="feature-desc">Coordinate multiple AI agents working in parallel</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💰</div>
+                        <div class="feature-title">95% Cost Savings</div>
+                        <div class="feature-desc">Smart model selection reduces API costs</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">2.5x Faster</div>
+                        <div class="feature-desc">Parallel execution speeds up workflows</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔧</div>
+                        <div class="feature-title">100+ Tools</div>
+                        <div class="feature-desc">MCP extension ecosystem</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Resources</h2>
+                <div class="btn-group">
+                    <button class="btn" onclick="openUrl('https://squan.dev/docs')">
+                        <span>📖</span>
+                        Documentation
+                    </button>
+                    <button class="btn" onclick="openUrl('https://github.com/tarvitave/squan')">
+                        <span>💻</span>
+                        GitHub
+                    </button>
+                    <button class="btn" onclick="openUrl('https://squan.dev')">
+                        <span>🌐</span>
+                        Website
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { invoke } = window.__TAURI__.tauri;
+        const { open } = window.__TAURI__.shell;
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function showStatus(message, type = 'success') {
+            const card = document.getElementById('statusCard');
+            const messageEl = document.getElementById('statusMessage');
+            
+            card.className = 'status-card ' + type;
+            messageEl.textContent = message;
+            card.classList.remove('hidden');
+            
+            setTimeout(() => {
+                card.classList.add('hidden');
+            }, 5000);
+        }
+
+        async function connectToServer() {
+            const url = document.getElementById('serverUrl').value;
+            
+            try {
+                showStatus('Connecting to ' + url + '...', 'warning');
+                const result = await invoke('start_server', { serverUrl: url });
+                showStatus(result, 'success');
+                
+                // Open in browser
+                setTimeout(() => {
+                    open(url);
+                }, 1000);
+            } catch (error) {
+                showStatus(error, 'error');
+            }
+        }
+
+        async function testConnection() {
+            const url = document.getElementById('serverUrl').value;
+            
+            try {
+                showStatus('Testing connection to ' + url + '...', 'warning');
+                const result = await invoke('start_server', { serverUrl: url });
+                showStatus('✅ Connection successful!', 'success');
+            } catch (error) {
+                showStatus('❌ Connection failed: ' + error, 'error');
+            }
+        }
+
+        async function checkDocker() {
+            try {
+                showStatus('Checking Docker installation...', 'warning');
+                const hasDocker = await invoke('check_docker');
+                
+                if (hasDocker) {
+                    showStatus('✅ Docker is installed and ready!', 'success');
+                } else {
+                    showStatus('❌ Docker not found. Please install Docker Desktop.', 'error');
+                    setTimeout(() => {
+                        open('https://www.docker.com/products/docker-desktop');
+                    }, 2000);
+                }
+            } catch (error) {
+                showStatus('Error checking Docker: ' + error, 'error');
+            }
+        }
+
+        async function openDocs() {
+            try {
+                await invoke('open_docs');
+            } catch (error) {
+                console.error('Failed to open docs:', error);
+            }
+        }
+
+        async function openUrl(url) {
+            try {
+                await open(url);
+            } catch (error) {
+                console.error('Failed to open URL:', error);
+            }
+        }
+
+        // Auto-test connection on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const defaultUrl = document.getElementById('serverUrl').value;
+            invoke('start_server', { serverUrl: defaultUrl })
+                .then(() => {
+                    showStatus('✅ Connected to local server at ' + defaultUrl, 'success');
+                })
+                .catch(() => {
+                    // Silent fail - they can manually connect
+                });
+        });
+    </script>
+</body>
+</html>
