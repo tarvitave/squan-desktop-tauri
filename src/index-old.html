@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Squan Desktop</title>
+    <title>Squan - Universal AI Development Platform</title>
     <style>
         * {
             margin: 0;
@@ -12,200 +12,254 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #e0e0e0;
             height: 100vh;
-            overflow-y: auto;
+            overflow: hidden;
         }
 
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
+            display: flex;
+            height: 100vh;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
         }
 
         .logo {
-            font-size: 3rem;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: bold;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
+            margin-bottom: 30px;
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: #888;
+        .mode-indicator {
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            font-size: 14px;
+            text-align: center;
         }
 
-        .status-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .status-card.success {
-            border-color: rgba(34, 197, 94, 0.3);
-            background: rgba(34, 197, 94, 0.1);
-        }
-
-        .status-card.error {
-            border-color: rgba(239, 68, 68, 0.3);
-            background: rgba(239, 68, 68, 0.1);
-        }
-
-        .status-card.warning {
-            border-color: rgba(251, 191, 36, 0.3);
-            background: rgba(251, 191, 36, 0.1);
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .card h2 {
+        .mode-indicator.standalone {
             color: #667eea;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
+        }
+
+        .mode-indicator.server {
+            color: #64ffda;
+        }
+
+        .nav-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 10px;
         }
 
-        .card p {
-            color: #aaa;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .step-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .input-group {
-            margin-bottom: 1rem;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 0.75rem;
+        .nav-item:hover {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            color: #fff;
-            font-size: 1rem;
         }
 
-        .input-group input:focus {
-            outline: none;
-            border-color: #667eea;
+        .nav-item.active {
+            background: rgba(102, 126, 234, 0.2);
+            border-left: 3px solid #667eea;
         }
 
-        .btn {
-            display: inline-flex;
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 20px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.5rem;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            max-width: 900px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            border-radius: 12px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin-left: 20%;
+        }
+
+        .message.assistant {
+            background: rgba(255, 255, 255, 0.05);
+            margin-right: 20%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message-header {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        textarea {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            border-radius: 12px;
+            resize: none;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 15px 30px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
+            border-radius: 12px;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .btn:hover:not(:disabled) {
+        button:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
 
-        .btn:disabled {
+        button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid #667eea;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .feature-grid {
+        /* Settings */
+        .settings-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .feature {
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 8px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-title {
-            font-weight: 600;
-            color: #667eea;
-            margin-bottom: 0.3rem;
-        }
-
-        .feature-desc {
-            font-size: 0.85rem;
-            color: #999;
-        }
-
-        .code-block {
-            background: #1a1a1a;
+        .settings-card {
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .settings-card h3 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
             border-radius: 8px;
-            padding: 1rem;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #22c55e;
-            overflow-x: auto;
-            margin: 1rem 0;
+            font-family: inherit;
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .status.success {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            color: #0f0;
+        }
+
+        .status.error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #f00;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 12px;
+            opacity: 0.7;
         }
 
         .loading {
@@ -213,345 +267,525 @@
             width: 16px;
             height: 16px;
             border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #667eea;
             border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 0.6s linear infinite;
+            animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .server-setup {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .tab {
-            padding: 0.75rem 1.5rem;
-            background: transparent;
-            border: none;
-            color: #888;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .tab.active {
+        .server-setup h2 {
             color: #667eea;
-            border-bottom-color: #667eea;
+            margin-bottom: 20px;
         }
 
-        .tab:hover {
-            color: #aaa;
+        .setup-steps {
+            margin-top: 20px;
         }
 
-        .tab-content {
-            display: none;
+        .setup-step {
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid #667eea;
+            border-radius: 8px;
         }
 
-        .tab-content.active {
-            display: block;
+        .setup-step h4 {
+            color: #667eea;
+            margin-bottom: 10px;
         }
 
-        .hidden {
-            display: none;
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .info-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .info-box.warning {
+            background: rgba(255, 193, 7, 0.1);
+            border-color: rgba(255, 193, 7, 0.3);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">Squan</div>
-            <div class="subtitle">AI Development Platform</div>
-        </div>
-
-        <!-- Status -->
-        <div id="statusCard" class="status-card hidden">
-            <div id="statusMessage"></div>
-        </div>
-
-        <!-- Quick Start Tabs -->
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('connect')">Connect to Server</button>
-            <button class="tab" onclick="switchTab('docker')">Start with Docker</button>
-            <button class="tab" onclick="switchTab('learn')">Learn More</button>
-        </div>
-
-        <!-- Tab: Connect to Server -->
-        <div id="connect-tab" class="tab-content active">
-            <div class="card">
-                <h2><span class="step-number">1</span> Connect to Squan Server</h2>
-                <p>If you already have a Squan server running, connect to it here:</p>
-                
-                <div class="input-group">
-                    <label for="serverUrl">Server URL</label>
-                    <input 
-                        type="text" 
-                        id="serverUrl" 
-                        placeholder="http://localhost:3000" 
-                        value="http://localhost:3000"
-                    />
-                </div>
-
-                <div class="btn-group">
-                    <button class="btn" onclick="connectToServer()">
-                        <span>🔗</span>
-                        Connect
-                    </button>
-                    <button class="btn btn-secondary" onclick="testConnection()">
-                        <span>🧪</span>
-                        Test Connection
-                    </button>
-                </div>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">⚡ Squan</div>
+            
+            <div class="mode-indicator standalone" id="mode-indicator">
+                🚀 Standalone Mode
             </div>
 
-            <div class="card">
-                <h2>Quick Actions</h2>
-                <div class="feature-grid">
-                    <div class="feature">
-                        <div class="feature-icon">📊</div>
-                        <div class="feature-title">Dashboard</div>
-                        <div class="feature-desc">View agents & workflows</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">🤖</div>
-                        <div class="feature-title">Agents</div>
-                        <div class="feature-desc">Manage AI agents</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">⚡</div>
-                        <div class="feature-title">Workflows</div>
-                        <div class="feature-desc">Create automations</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">💰</div>
-                        <div class="feature-title">Cost Tracking</div>
-                        <div class="feature-desc">Monitor API usage</div>
-                    </div>
-                </div>
+            <div class="nav-item active" data-view="chat">
+                <span>💬</span> Chat
+            </div>
+            <div class="nav-item" data-view="settings">
+                <span>⚙️</span> Settings
+            </div>
+            <div class="nav-item" data-view="server-setup">
+                <span>🌐</span> Switch to Server
+            </div>
+            <div class="nav-item" data-view="about">
+                <span>ℹ️</span> About
             </div>
         </div>
 
-        <!-- Tab: Docker Setup -->
-        <div id="docker-tab" class="tab-content">
-            <div class="card">
-                <h2><span class="step-number">1</span> Start Squan with Docker</h2>
-                <p>The fastest way to get Squan running locally:</p>
-
-                <div class="code-block" id="dockerCommands">
-# Download docker-compose.yml
-curl -O https://raw.githubusercontent.com/tarvitave/squan-release/main/docker-compose.yml
-
-# Download .env.example
-curl -O https://raw.githubusercontent.com/tarvitave/squan-release/main/.env.example
-
-# Rename and configure
-mv .env.example .env
-# Edit .env with your API keys
-
-# Start Squan
-docker-compose up -d
-
-# Access at http://localhost:3000
-                </div>
-
-                <div class="btn-group">
-                    <button class="btn" onclick="checkDocker()">
-                        <span>🐳</span>
-                        Check Docker Installation
-                    </button>
-                    <button class="btn btn-secondary" onclick="openDocs()">
-                        <span>📖</span>
-                        View Full Guide
-                    </button>
-                </div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 id="page-title">Standalone Chat</h1>
+                <div id="header-info">Ready to chat</div>
             </div>
 
-            <div class="card">
-                <h2><span class="step-number">2</span> Configure API Keys</h2>
-                <p>Squan needs at least one AI provider API key:</p>
-                
-                <div class="feature-grid">
-                    <div class="feature">
-                        <div class="feature-icon">🔑</div>
-                        <div class="feature-title">Anthropic</div>
-                        <div class="feature-desc">ANTHROPIC_API_KEY</div>
+            <div class="content">
+                <!-- Chat View (Standalone) -->
+                <div id="chat-view" class="chat-container">
+                    <div class="messages" id="messages">
+                        <div class="info-box">
+                            <strong>👋 Welcome to Squan Standalone Mode!</strong>
+                            <p style="margin-top: 10px;">Chat directly with AI without needing a server. Just add your API key in Settings and start chatting!</p>
+                            <p style="margin-top: 10px;">Want multi-agent orchestration? Click <strong>"Switch to Server"</strong> in the sidebar.</p>
+                        </div>
                     </div>
-                    <div class="feature">
-                        <div class="feature-icon">🔑</div>
-                        <div class="feature-title">OpenAI</div>
-                        <div class="feature-desc">OPENAI_API_KEY</div>
+                    <div class="input-container">
+                        <textarea 
+                            id="message-input" 
+                            placeholder="Ask anything... (Ctrl+Enter to send)" 
+                            rows="3"
+                        ></textarea>
+                        <button id="send-btn">Send</button>
                     </div>
-                    <div class="feature">
-                        <div class="feature-icon">🔑</div>
-                        <div class="feature-title">Google</div>
-                        <div class="feature-desc">GOOGLE_API_KEY</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">🔑</div>
-                        <div class="feature-title">Azure</div>
-                        <div class="feature-desc">AZURE_API_KEY</div>
+                    <div class="stats">
+                        <span id="token-count">Tokens: 0</span>
+                        <span id="cost-count">Cost: $0.00</span>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Tab: Learn More -->
-        <div id="learn-tab" class="tab-content">
-            <div class="card">
-                <h2>What is Squan?</h2>
-                <p>Squan is a universal AI development platform that helps you:</p>
-                
-                <div class="feature-grid">
-                    <div class="feature">
-                        <div class="feature-icon">🤖</div>
-                        <div class="feature-title">Multi-Agent</div>
-                        <div class="feature-desc">Coordinate multiple AI agents working in parallel</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">💰</div>
-                        <div class="feature-title">95% Cost Savings</div>
-                        <div class="feature-desc">Smart model selection reduces API costs</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">⚡</div>
-                        <div class="feature-title">2.5x Faster</div>
-                        <div class="feature-desc">Parallel execution speeds up workflows</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">🔧</div>
-                        <div class="feature-title">100+ Tools</div>
-                        <div class="feature-desc">MCP extension ecosystem</div>
+                <!-- Settings View -->
+                <div id="settings-view" class="hidden">
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <h3>AI Provider (Standalone)</h3>
+                            <label>Provider:</label>
+                            <select id="provider-select">
+                                <option value="anthropic">Anthropic (Claude)</option>
+                                <option value="openai">OpenAI (GPT)</option>
+                                <option value="google">Google (Gemini)</option>
+                            </select>
+
+                            <label>API Key:</label>
+                            <input type="password" id="api-key" placeholder="sk-... or your API key">
+
+                            <label>Model:</label>
+                            <select id="model-select">
+                                <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
+                                <option value="claude-3-opus-20240229">Claude 3 Opus</option>
+                            </select>
+
+                            <button id="save-settings-btn">Save Settings</button>
+                            <div id="settings-status"></div>
+
+                            <div class="info-box" style="margin-top: 20px;">
+                                <strong>Get API Keys:</strong><br>
+                                <a href="https://console.anthropic.com/" target="_blank" style="color: #667eea;">Anthropic Console</a> •
+                                <a href="https://platform.openai.com/" target="_blank" style="color: #667eea;">OpenAI Platform</a> •
+                                <a href="https://aistudio.google.com/" target="_blank" style="color: #667eea;">Google AI Studio</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card">
-                <h2>Resources</h2>
-                <div class="btn-group">
-                    <button class="btn" onclick="openUrl('https://squan.dev/docs')">
-                        <span>📖</span>
-                        Documentation
-                    </button>
-                    <button class="btn" onclick="openUrl('https://github.com/tarvitave/squan')">
-                        <span>💻</span>
-                        GitHub
-                    </button>
-                    <button class="btn" onclick="openUrl('https://squan.dev')">
-                        <span>🌐</span>
-                        Website
-                    </button>
+                <!-- Server Setup View -->
+                <div id="server-setup-view" class="hidden">
+                    <div class="server-setup">
+                        <h2>🌐 Switch to Server Mode</h2>
+                        <p>Server mode gives you multi-agent orchestration, team collaboration, and advanced features.</p>
+
+                        <div class="info-box warning">
+                            <strong>⚠️ Requirements:</strong> Docker Desktop must be installed to run the Squan server.
+                        </div>
+
+                        <div class="setup-steps">
+                            <div class="setup-step">
+                                <h4>Step 1: Install Docker Desktop</h4>
+                                <p>Download and install Docker Desktop for your platform:</p>
+                                <div style="margin: 10px 0;">
+                                    <a href="https://www.docker.com/products/docker-desktop/" target="_blank" style="color: #667eea; font-weight: bold;">
+                                        Download Docker Desktop →
+                                    </a>
+                                </div>
+                                <p style="margin-top: 10px; font-size: 13px; opacity: 0.8;">After installing, restart your computer and launch Docker Desktop.</p>
+                            </div>
+
+                            <div class="setup-step">
+                                <h4>Step 2: Download Squan Server Files</h4>
+                                <p>Open PowerShell (Windows) or Terminal (Mac/Linux) and run:</p>
+                                <div class="code-block">
+                                    <strong>Windows (PowerShell):</strong><br>
+                                    <code>Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tarvitave/squan-release/main/start-windows.ps1" -OutFile "start.ps1"; .\start.ps1</code>
+                                </div>
+                                <div class="code-block">
+                                    <strong>macOS / Linux:</strong><br>
+                                    <code>curl -O https://raw.githubusercontent.com/tarvitave/squan-release/main/start-mac-linux.sh && chmod +x start-mac-linux.sh && ./start-mac-linux.sh</code>
+                                </div>
+                            </div>
+
+                            <div class="setup-step">
+                                <h4>Step 3: Configure API Keys</h4>
+                                <p>The setup script will prompt you to add at least one API key. You can also edit the <code>.env</code> file manually:</p>
+                                <div class="code-block">
+                                    <code>
+                                        ANTHROPIC_API_KEY=sk-ant-...<br>
+                                        OPENAI_API_KEY=sk-...<br>
+                                        GOOGLE_API_KEY=...
+                                    </code>
+                                </div>
+                            </div>
+
+                            <div class="setup-step">
+                                <h4>Step 4: Start Squan Server</h4>
+                                <p>Once Docker is running and your API keys are configured:</p>
+                                <div class="code-block">
+                                    <code>docker compose up -d</code>
+                                </div>
+                                <p style="margin-top: 10px;">The server will start on <code>http://localhost:3000</code></p>
+                            </div>
+
+                            <div class="setup-step">
+                                <h4>Step 5: Connect This App to Server</h4>
+                                <p>Once the server is running, click the button below to connect:</p>
+                                <div style="margin-top: 15px;">
+                                    <input type="text" id="server-url-input" value="http://localhost:3000" placeholder="http://localhost:3000">
+                                    <button id="connect-server-btn" style="margin-top: 10px; width: 100%;">Connect to Server</button>
+                                    <div id="server-connection-status" style="margin-top: 10px;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="margin-top: 20px;">
+                            <strong>💡 Tip:</strong> Server mode is optional. Standalone mode works great for solo development. Only switch if you need multi-agent orchestration or team features.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About View -->
+                <div id="about-view" class="hidden">
+                    <div class="settings-card">
+                        <h3>About Squan</h3>
+                        <p><strong>Version 2.0.2</strong></p>
+                        <p style="margin-top: 15px;">
+                            Squan is a universal AI development platform that lets you orchestrate multiple AI agents for complex software development tasks.
+                        </p>
+                        
+                        <h4 style="margin-top: 20px; color: #667eea;">Standalone Mode (Current)</h4>
+                        <p style="margin-top: 10px;">
+                            Chat directly with AI models without a server. Perfect for solo developers who want simplicity and speed.
+                        </p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>✅ No Docker required</li>
+                            <li>✅ 3 AI providers (Claude, OpenAI, Gemini)</li>
+                            <li>✅ Real-time cost tracking</li>
+                            <li>✅ Settings saved locally</li>
+                        </ul>
+
+                        <h4 style="margin-top: 20px; color: #64ffda;">Server Mode (Optional)</h4>
+                        <p style="margin-top: 10px;">
+                            Connect to a Squan server for multi-agent orchestration, team collaboration, and advanced features.
+                        </p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>✅ Multiple parallel agents</li>
+                            <li>✅ Root Agent + WorkerBees</li>
+                            <li>✅ Team collaboration</li>
+                            <li>✅ Advanced workflows</li>
+                        </ul>
+
+                        <p style="margin-top: 20px;">
+                            <a href="https://squan.dev" target="_blank" style="color: #667eea;">squan.dev</a> •
+                            <a href="https://github.com/tarvitave/squan" target="_blank" style="color: #667eea;">GitHub</a> •
+                            <a href="https://squan.dev/docs" target="_blank" style="color: #667eea;">Documentation</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const { invoke } = window.__TAURI__.tauri;
+        const { invoke } = window.__TAURI__.core;
         const { open } = window.__TAURI__.shell;
 
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-            
-            // Show selected tab
-            document.getElementById(tabName + '-tab').classList.add('active');
-            event.target.classList.add('active');
+        let currentView = 'chat';
+        let messages = [];
+        let totalTokens = 0;
+        let totalCost = 0;
+        let isServerMode = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSettings();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    currentView = item.dataset.view;
+                    showView(currentView);
+                });
+            });
+
+            // Chat
+            document.getElementById('send-btn').addEventListener('click', sendMessage);
+            document.getElementById('message-input').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    sendMessage();
+                }
+            });
+
+            // Settings
+            document.getElementById('save-settings-btn').addEventListener('click', saveSettings);
+            document.getElementById('provider-select').addEventListener('change', updateModels);
+
+            // Server connection
+            document.getElementById('connect-server-btn').addEventListener('click', connectToServer);
         }
 
-        function showStatus(message, type = 'success') {
-            const card = document.getElementById('statusCard');
-            const messageEl = document.getElementById('statusMessage');
+        function showView(view) {
+            document.getElementById('chat-view').classList.add('hidden');
+            document.getElementById('settings-view').classList.add('hidden');
+            document.getElementById('server-setup-view').classList.add('hidden');
+            document.getElementById('about-view').classList.add('hidden');
             
-            card.className = 'status-card ' + type;
-            messageEl.textContent = message;
-            card.classList.remove('hidden');
+            document.getElementById(`${view}-view`).classList.remove('hidden');
             
-            setTimeout(() => {
-                card.classList.add('hidden');
-            }, 5000);
+            const titles = {
+                chat: 'Standalone Chat',
+                settings: 'Settings',
+                'server-setup': 'Switch to Server Mode',
+                about: 'About Squan'
+            };
+            document.getElementById('page-title').textContent = titles[view];
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('message-input');
+            const content = input.value.trim();
+            
+            if (!content) return;
+
+            const apiKey = document.getElementById('api-key').value;
+            if (!apiKey) {
+                alert('Please set your API key in Settings first!');
+                showView('settings');
+                return;
+            }
+
+            // Add user message
+            addMessage('user', content);
+            input.value = '';
+            
+            const sendBtn = document.getElementById('send-btn');
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<span class="loading"></span>';
+
+            try {
+                const provider = document.getElementById('provider-select').value;
+                const model = document.getElementById('model-select').value;
+
+                const response = await invoke('standalone_chat', {
+                    request: {
+                        provider: {
+                            name: provider,
+                            api_key: apiKey,
+                            model: model
+                        },
+                        messages: messages.map(m => ({
+                            role: m.role,
+                            content: m.content
+                        })),
+                        max_tokens: 4096
+                    }
+                });
+
+                addMessage('assistant', response.content);
+                totalTokens += response.tokens;
+                totalCost += response.cost;
+                
+                document.getElementById('token-count').textContent = `Tokens: ${totalTokens}`;
+                document.getElementById('cost-count').textContent = `Cost: $${totalCost.toFixed(4)}`;
+
+            } catch (error) {
+                addMessage('error', `Error: ${error}`);
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Send';
+            }
+        }
+
+        function addMessage(role, content) {
+            const messagesDiv = document.getElementById('messages');
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${role}`;
+            
+            const header = document.createElement('div');
+            header.className = 'message-header';
+            header.textContent = role === 'user' ? 'You' : role === 'assistant' ? 'AI' : 'System';
+            
+            const contentEl = document.createElement('div');
+            contentEl.textContent = content;
+            
+            messageEl.appendChild(header);
+            messageEl.appendChild(contentEl);
+            messagesDiv.appendChild(messageEl);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            if (role !== 'error') {
+                messages.push({ role, content });
+            }
+        }
+
+        async function saveSettings() {
+            const provider = document.getElementById('provider-select').value;
+            const apiKey = document.getElementById('api-key').value;
+            const model = document.getElementById('model-select').value;
+
+            try {
+                await invoke('save_settings', {
+                    settings: {
+                        providers: [{
+                            name: provider,
+                            api_key: apiKey,
+                            model: model
+                        }],
+                        default_provider: provider,
+                        max_tokens: 4096,
+                        temperature: 0.7
+                    }
+                });
+
+                showStatus('settings-status', '✓ Settings saved!', 'success');
+            } catch (error) {
+                showStatus('settings-status', `✗ Error: ${error}`, 'error');
+            }
+        }
+
+        async function loadSettings() {
+            try {
+                const settings = await invoke('load_settings');
+                if (settings.providers && settings.providers.length > 0) {
+                    const provider = settings.providers[0];
+                    document.getElementById('provider-select').value = provider.name;
+                    document.getElementById('api-key').value = provider.api_key;
+                    document.getElementById('model-select').value = provider.model;
+                }
+            } catch (error) {
+                console.log('No saved settings found');
+            }
         }
 
         async function connectToServer() {
-            const url = document.getElementById('serverUrl').value;
+            const url = document.getElementById('server-url-input').value;
+            const btn = document.getElementById('connect-server-btn');
+            const statusEl = document.getElementById('server-connection-status');
             
-            try {
-                showStatus('Connecting to ' + url + '...', 'warning');
-                const result = await invoke('start_server', { serverUrl: url });
-                showStatus(result, 'success');
-                
-                // Open in browser
-                setTimeout(() => {
-                    open(url);
-                }, 1000);
-            } catch (error) {
-                showStatus(error, 'error');
-            }
-        }
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> Connecting...';
 
-        async function testConnection() {
-            const url = document.getElementById('serverUrl').value;
-            
             try {
-                showStatus('Testing connection to ' + url + '...', 'warning');
-                const result = await invoke('start_server', { serverUrl: url });
-                showStatus('✅ Connection successful!', 'success');
-            } catch (error) {
-                showStatus('❌ Connection failed: ' + error, 'error');
-            }
-        }
-
-        async function checkDocker() {
-            try {
-                showStatus('Checking Docker installation...', 'warning');
-                const hasDocker = await invoke('check_docker');
-                
-                if (hasDocker) {
-                    showStatus('✅ Docker is installed and ready!', 'success');
-                } else {
-                    showStatus('❌ Docker not found. Please install Docker Desktop.', 'error');
+                const isConnected = await invoke('test_connection', { url });
+                if (isConnected) {
+                    isServerMode = true;
+                    document.getElementById('mode-indicator').textContent = '🌐 Server Mode';
+                    document.getElementById('mode-indicator').className = 'mode-indicator server';
+                    showStatus('server-connection-status', '✓ Connected to server! Opening in browser...', 'success');
+                    
+                    // Open server in browser
                     setTimeout(() => {
-                        open('https://www.docker.com/products/docker-desktop');
-                    }, 2000);
+                        open(url);
+                    }, 1000);
+                } else {
+                    showStatus('server-connection-status', '✗ Connection failed. Make sure Docker is running and server is started.', 'error');
                 }
             } catch (error) {
-                showStatus('Error checking Docker: ' + error, 'error');
+                showStatus('server-connection-status', `✗ Error: ${error}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Connect to Server';
             }
         }
 
-        async function openDocs() {
-            try {
-                await invoke('open_docs');
-            } catch (error) {
-                console.error('Failed to open docs:', error);
-            }
+        function updateModels() {
+            const provider = document.getElementById('provider-select').value;
+            const modelSelect = document.getElementById('model-select');
+            
+            const models = {
+                anthropic: [
+                    { value: 'claude-3-5-sonnet-20241022', text: 'Claude 3.5 Sonnet' },
+                    { value: 'claude-3-opus-20240229', text: 'Claude 3 Opus' },
+                    { value: 'claude-3-haiku-20240307', text: 'Claude 3 Haiku' }
+                ],
+                openai: [
+                    { value: 'gpt-4o', text: 'GPT-4o' },
+                    { value: 'gpt-4-turbo', text: 'GPT-4 Turbo' },
+                    { value: 'gpt-3.5-turbo', text: 'GPT-3.5 Turbo' }
+                ],
+                google: [
+                    { value: 'gemini-2.0-flash-exp', text: 'Gemini 2.0 Flash' },
+                    { value: 'gemini-1.5-pro', text: 'Gemini 1.5 Pro' }
+                ]
+            };
+
+            modelSelect.innerHTML = '';
+            models[provider].forEach(model => {
+                const option = document.createElement('option');
+                option.value = model.value;
+                option.textContent = model.text;
+                modelSelect.appendChild(option);
+            });
         }
 
-        async function openUrl(url) {
-            try {
-                await open(url);
-            } catch (error) {
-                console.error('Failed to open URL:', error);
-            }
+        function showStatus(elementId, message, type) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.className = `status ${type}`;
+            setTimeout(() => {
+                el.className = 'status hidden';
+            }, 5000);
         }
-
-        // Auto-test connection on load
-        window.addEventListener('DOMContentLoaded', () => {
-            const defaultUrl = document.getElementById('serverUrl').value;
-            invoke('start_server', { serverUrl: defaultUrl })
-                .then(() => {
-                    showStatus('✅ Connected to local server at ' + defaultUrl, 'success');
-                })
-                .catch(() => {
-                    // Silent fail - they can manually connect
-                });
-        });
     </script>
 </body>
 </html>

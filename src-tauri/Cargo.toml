@@ -1,6 +1,6 @@
 [package]
 name = "squan"
-version = "2.0.2"
+version = "2.0.3"
 description = "Squan - AI Development Platform"
 authors = ["Colin Wynd <support@squan.dev>"]
 edition = "2021"
